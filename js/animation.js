@@ -182,12 +182,15 @@ if (signIn) {
 /* welcome -> permission (guest) */
 
 if(continueGuest){
-continueGuest.addEventListener("click",function(){
+    continueGuest.addEventListener("click",function(){
 
-welcome.classList.remove("show");
-permission.classList.add("show");
+        /* clear stored name */
+        localStorage.removeItem("ezrouteUser");
 
-});
+        welcome.classList.remove("show");
+        permission.classList.add("show");
+
+    });
 }
 
 /* signup → login */
@@ -605,7 +608,7 @@ defaultPriority.classList.remove("show");
 homePage.classList.add("show");
 
 generateHomePriorities();
-
+loadUserName();   // ← ADD THIS
 });
 }
 
@@ -643,7 +646,7 @@ defaultPriority.classList.remove("show");
 homePage.classList.add("show");
 
 generateHomePriorities();
-
+loadUserName();   // ← ADD THIS
 });
 }
 
@@ -652,12 +655,17 @@ function loadUserName(){
 const savedName = localStorage.getItem("ezrouteUser");
 
 if(savedName){
-
-document.getElementById("homeUserName").textContent = savedName + "? 👋";
-
+document.getElementById("homeUserName").textContent =
+savedName + "! 👋";
+}else{
+document.getElementById("homeUserName").textContent =
+"Guest! 👋";
 }
 
 }
+
+
+
 
 //routes and collapsible
 
@@ -673,6 +681,7 @@ routeOptions.classList.add("show");
 
 generateRoutePriorities();
 generateRouteSliders();
+rankRoutes();
 
 });
 }
@@ -804,35 +813,43 @@ const backToRoutes = document.getElementById("backToRoutes");
 let navMap = null; // Store map instance globally
 
 /* HANDLE ROUTE BUTTON CLICK */
+
 document.addEventListener("click", function(e){
-    const btn = e.target.closest(".select-route-btn");
-    if(!btn) return;
 
-    /* STEP 1: SELECT ROUTE */
-    if(btn.textContent.includes("Select")){
-        /* reset all buttons */
-        document.querySelectorAll(".select-route-btn").forEach(b=>{
-            b.textContent = "Select Route";
-            b.classList.remove("start-route");
-        });
+const btn = e.target.closest(".select-route-btn");
+if(!btn) return;
 
-        /* convert clicked button */
-        btn.textContent = "Start This Route";
-        btn.classList.add("start-route");
-        return;
-    }
 
-    /* STEP 2: START ROUTE */
-    if(btn.textContent.includes("Start")){
-        routeOptions.classList.remove("show");
-        tripNavigation.classList.add("show");
 
-        /* CRITICAL: Wait for DOM to render before loading map */
-        setTimeout(() => {
-            loadNavigationMap();
-        }, 100);
-    }
+
+
+
+/* SELECT ROUTE */
+
+if(!btn.classList.contains("start-route")){
+
+document.querySelectorAll(".select-route-btn").forEach(b=>{
+b.classList.remove("start-route");
+b.textContent = "Select Route";
 });
+
+btn.classList.add("start-route");
+btn.textContent = "Start This Route";
+
+return;
+
+}
+
+
+
+
+/* START ROUTE */
+
+
+routeOptions.classList.remove("show");
+tripNavigation.classList.add("show");
+
+
 
 /* ================= */
 /* BACK TO ROUTES   */
@@ -842,103 +859,6 @@ if(backToRoutes){
         tripNavigation.classList.remove("show");
         routeOptions.classList.add("show");
     });
-}
-
-/* ================= */
-/* LEAFLET MAP      */
-/* ================= */
-function loadNavigationMap(){
-    const mapContainer = document.getElementById("navMap");
-    
-    if(!mapContainer) {
-        console.error("Map container not found!");
-        return;
-    }
-
-    /* Clear any existing map */
-    if(navMap){
-        navMap.remove();
-        navMap = null;
-    }
-
-    /* ANTIPOLO TO MOA ROUTE */
-    const antipolo = [14.5863, 121.1775]; // Antipolo City
-    const moa = [14.5350, 120.9823]; // SM Mall of Asia
-
-    try {
-        /* Create map centered between start and end */
-        navMap = L.map('navMap', {
-            zoomControl: true,
-            attributionControl: false
-        }).setView([14.56, 121.08], 11);
-
-        /* Add OpenStreetMap tiles */
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap'
-        }).addTo(navMap);
-
-        /* START MARKER (Antipolo) */
-        const startIcon = L.divIcon({
-            className: 'custom-marker',
-            html: `<div style="background:#3b82f6;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:bold;border:4px solid white;box-shadow:0 4px 12px rgba(0,0,0,0.3);">A</div>`,
-            iconSize: [40, 40],
-            iconAnchor: [20, 20]
-        });
-
-        L.marker(antipolo, {icon: startIcon})
-            .addTo(navMap)
-            .bindPopup("<b>Start: Antipolo</b>");
-
-        /* END MARKER (MOA) */
-        const endIcon = L.divIcon({
-            className: 'custom-marker',
-            html: `<div style="background:#f59e0b;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:bold;border:4px solid white;box-shadow:0 4px 12px rgba(0,0,0,0.3);">B</div>`,
-            iconSize: [40, 40],
-            iconAnchor: [20, 20]
-        });
-
-        L.marker(moa, {icon: endIcon})
-            .addTo(navMap)
-            .bindPopup("<b>Destination: SM MOA</b>");
-
-        /* ROUTE LINE (Simulated path - straight line for demo) */
-        const routeLine = L.polyline([antipolo, moa], {
-            color: '#3b82f6',
-            weight: 5,
-            opacity: 0.7,
-            dashArray: '10, 10'
-        }).addTo(navMap);
-
-        /* CURRENT POSITION MARKER (Moving along route) */
-        const currentIcon = L.divIcon({
-            className: 'current-marker',
-            html: `<div style="background:#10b981;width:24px;height:24px;border-radius:50%;border:4px solid white;box-shadow:0 4px 12px rgba(16,185,129,0.6);animation:pulse-dot 2s infinite;"></div>`,
-            iconSize: [24, 24],
-            iconAnchor: [12, 12]
-        });
-
-        /* Current position (30% along the route for demo) */
-        const currentLat = antipolo[0] + (moa[0] - antipolo[0]) * 0.3;
-        const currentLng = antipolo[1] + (moa[1] - antipolo[1]) * 0.3;
-
-        L.marker([currentLat, currentLng], {icon: currentIcon})
-            .addTo(navMap)
-            .bindPopup("<b>You are here</b>");
-
-        /* FIT BOUNDS to show entire route */
-        navMap.fitBounds(routeLine.getBounds(), {padding: [50, 50]});
-
-        /* CRITICAL: Fix map rendering */
-        setTimeout(() => {
-            navMap.invalidateSize();
-        }, 200);
-
-        console.log("Map loaded successfully!");
-
-    } catch(error) {
-        console.error("Error loading map:", error);
-    }
 }
 
 
@@ -964,6 +884,47 @@ activeStep.innerHTML="✓";
 
 },8000);
 
+});
+
+
+//end trip button
+const endTripBtn = document.querySelector(".action-btn.danger");
+
+if(endTripBtn){
+endTripBtn.addEventListener("click",function(){
+
+tripNavigation.classList.remove("show");
+tripComplete.classList.add("show");
+
+/* populate summary */
+
+if(selectedRoute){
+
+document.getElementById("summaryRoute").textContent = selectedRoute.name;
+document.getElementById("summaryDuration").textContent = selectedRoute.time + " mins";
+let selectedRoute = null;
+
+}
+
+});
+}
+const crowdSlider = document.getElementById("crowdSlider");
+const crowdValue = document.getElementById("crowdValue");
+
+if(crowdSlider){
+crowdSlider.addEventListener("input",function(){
+
+let value = this.value;
+
+let label="Moderate";
+
+if(value<=3) label="Low";
+if(value>=7) label="High";
+
+crowdValue.textContent=value+"/10 - "+label;
+
+});
+}
 
 
 

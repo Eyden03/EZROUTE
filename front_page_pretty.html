@@ -44,7 +44,7 @@
        Tired of Wasted Time?
       </h2>
       <p class="onboarding-text">
-       Commuters waste 3.2 hours weekly due to unpredictable traffic and poor route choices.
+       Commuters waste many hours weekly due to unpredictable traffic and poor route choices.
       </p>
       <div class="pagination">
        <div class="pagination-dot active">
@@ -1031,7 +1031,7 @@
          To
         </div>
         <div class="loc-value">
-         MOA
+         FEU Tech
         </div>
        </div>
       </div>
@@ -1057,8 +1057,8 @@
        <div class="adjust-content" id="adjustContent">
         <div id="routeSliders">
         </div>
-        <button class="reset-button">
-         Reset to Defaults
+        <button class="reset-button" id="resetDefaults">
+        Reset to Defaults
         </button>
         <div class="tip-box route-tip">
          <span class="tip-icon">
@@ -1253,13 +1253,13 @@
     <!-- route-options-content -->
    </div>
    <!-- route-options-screen -->
-  </div>
+  
   <!-- routeOptions -->
   <!-- TRIP NAVIGATION PAGE -->
-  <div class="onboarding-screen" id="tripNavigation">
-   <div class="route-options-screen">
-    <!-- HEADER -->
-    <div class="route-options-header">
+   <div class="onboarding-screen" id="tripNavigation">
+    <div class="trip-navigation-screen">
+     <!-- HEADER -->
+     <div class="trip-navigation-header">
      <button class="back-button" id="backToRoutes">
       ←
      </button>
@@ -1273,7 +1273,7 @@
       <img class="trip-map" src="map.png"/>
      </div>
      <div class="nav-info-card">
-     </div>
+     
      <!-- CURRENT STATUS -->
      <div class="nav-status">
       <div class="status-icon">
@@ -1284,7 +1284,7 @@
         Current Status
        </div>
        <div class="status-value">
-        On MRT-3 to Ayala
+        On LRT-2 to Recto
        </div>
       </div>
      </div>
@@ -1292,7 +1292,7 @@
      <div class="eta-display">
       <div class="eta-item">
        <div class="eta-value">
-        8:42
+        9:05
        </div>
        <div class="eta-label">
         ETA
@@ -1302,7 +1302,7 @@
       </div>
       <div class="eta-item">
        <div class="eta-value">
-        28
+        35
        </div>
        <div class="eta-label">
         mins left
@@ -1312,7 +1312,7 @@
       </div>
       <div class="eta-item">
        <div class="eta-value">
-        ₱45
+        ₱30
        </div>
        <div class="eta-label">
         Total cost
@@ -1324,84 +1324,180 @@
       <div style="font-size:14px;font-weight:700;margin-bottom:12px;">
        Trip Steps
       </div>
+      
       <div class="step-item">
-       <div class="step-icon completed">
-        ✓
-       </div>
-       <div class="step-content">
-        <div class="step-title">
-         Walk to MRT Station
+        <div class="step-icon completed">✓</div>
+        <div class="step-content">
+        <div class="step-title">Walk to LRT-2 Antipolo Station</div>
+        <div class="step-desc">Antipolo Station</div>
+        <div class="step-time">Completed</div>
         </div>
-        <div class="step-desc">
-         Quezon Avenue Station
         </div>
-        <div class="step-time">
-         Completed
+      
+        <div class="step-item">
+        <div class="step-icon active">
+        <img src="train.png" width="20">
         </div>
-       </div>
-      </div>
-      <div class="step-item">
-       <div class="step-icon active">
-        <img src="train.png" width="20"/>
-       </div>
-       <div class="step-content">
-        <div class="step-title">
-         MRT-3 to Ayala
+        <div class="step-content">
+        <div class="step-title">LRT-2 to Recto</div>
+        <div class="step-desc">10 stations • 35 minutes</div>
+        <div class="step-time">In progress...</div>
         </div>
-        <div class="step-desc">
-         9 stations • 25 minutes
         </div>
-        <div class="step-time">
-         In progress...
+
+        <div class="step-item">
+        <div class="step-icon">
+        <img src="walk.png" width="18">
         </div>
-       </div>
-      </div>
-      <div class="step-item">
-       <div class="step-icon">
-        <img src="walk.png" width="18"/>
-       </div>
-       <div class="step-content">
-        <div class="step-title">
-         Walk to Bus Stop
+        <div class="step-content">
+        <div class="step-title">Walk to FEU Tech</div>
+        <div class="step-desc">650 meters</div>
+        <div class="step-time">8 mins</div>
         </div>
-        <div class="step-desc">
-         200 meters
         </div>
-        <div class="step-time">
-         3 mins
-        </div>
-       </div>
-      </div>
-      <div class="step-item">
-       <div class="step-icon">
-        <img src="bus.png" width="20"/>
-       </div>
-       <div class="step-content">
-        <div class="step-title">
-         Bus to Makati CBD
-        </div>
-        <div class="step-desc">
-         Final destination
-        </div>
-        <div class="step-time">
-         10 mins
-        </div>
-       </div>
-      </div>
+
+     
      </div>
     </div>
     <!-- END TRIP BUTTON -->
     <div class="bottom-action">
-     <button class="action-btn danger">
-      End Trip
-     </button>
+            <button class="action-btn danger" id="endTripBtn">
+        End Trip
+        </button>
     </div>
    </div>
-   <!-- route-options-screen -->
+   <!-- trip-navigation-screen -->
   </div>
   <!-- tripNavigation -->
+  </div>
+
+
+  <!-- TRIP COMPLETE PAGE -->
+<div class="onboarding-screen" id="tripComplete">
+
+  <div class="trip-complete-screen">
+
+    <div class="trip-complete-content">
+
+      <!-- HERO -->
+      <div class="complete-hero">
+        <div class="complete-icon">🎉</div>
+        <div class="complete-title">Trip Complete!</div>
+        <div class="complete-subtitle">You've arrived at your destination</div>
+      </div>
+
+      <!-- TRIP SUMMARY -->
+      <div class="trip-summary">
+        <div style="font-size:16px;font-weight:700;margin-bottom:15px;">Trip Summary</div>
+
+        <div class="summary-row">
+          <div class="summary-label">Route</div>
+          <div class="summary-value" id="summaryRoute">-</div>
+        </div>
+
+        <div class="summary-row">
+          <div class="summary-label">Duration</div>
+          <div class="summary-value highlight" id="summaryDuration">-</div>
+        </div>
+
+        <div class="summary-row">
+          <div class="summary-label">Time Saved</div>
+          <div class="summary-value highlight">+12 mins</div>
+        </div>
+
+        <div class="summary-row">
+          <div class="summary-label">Money Saved</div>
+          <div class="summary-value highlight">₱40</div>
+        </div>
+      </div>
+
+      <!-- FEEDBACK -->
+      <div class="feedback-section">
+
+        <div class="feedback-title">How was your trip?</div>
+
+        <div class="rating-group">
+          <div class="rating-label">Actual Cost</div>
+          <input type="number" class="cost-input" placeholder="₱45">
+        </div>
+
+        <div class="rating-group">
+          <div class="rating-label">Crowd Level</div>
+
+          <div class="slider-container">
+
+            <input type="range"
+            class="slider-input"
+            id="crowdSlider"
+            min="1"
+            max="10"
+            value="6">
+
+            <div class="slider-display">
+            <span id="crowdValue">6</span>/10 - Moderate
+            </div>
+
+            </div>
+        </div>
+
+        <div class="rating-group">
+          <div class="rating-label">How stressful was it?</div>
+
+          <div class="emoji-rating">
+            <button class="emoji-btn">😰</button>
+            <button class="emoji-btn">😟</button>
+            <button class="emoji-btn">😐</button>
+            <button class="emoji-btn selected">😊</button>
+            <button class="emoji-btn">😄</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ENVIRONMENT -->
+     <div class="impact-card">
+
+            <div class="impact-title">
+                🌱 Environmental Impact
+            </div>
+
+            <div class="impact-text">
+                You avoided <span class="impact-value">0.48 kg CO₂</span>
+                by taking public transport!
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="bottom-action">
+      <button class="action-btn success" id="submitFeedbackBtn">
+        Submit Feedback
+        </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <!-- phone -->
-  <script src="js/animation.js">
+   </div>
+ <script src="js/animation2.js">
   </script>
  </body>
 </html>

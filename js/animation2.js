@@ -54,7 +54,7 @@ const priorityNames = {
 
 const priorityIcons = {
     "Fastest":"fastest.png",
-    "Cheapest":"cheapest.png",
+    "Cheapest":"Money.png",
     "Less Crowded":"crowded.png",
     "Comfortable":"comfort.png",
     "Short Wait":"wait.png",
@@ -261,7 +261,7 @@ if(continuePriorities){
         slidersContainer.innerHTML = "";
         
         selected.forEach(card => {
-            const key = card.querySelector("h3").textContent;
+        const key = card.querySelector("h3").textContent.trim();
             const label = priorityNames[key];
             const icon = priorityIcons[key];
             
@@ -361,7 +361,7 @@ function generateDefaultPriority(){
     const selected = document.querySelectorAll(".priority-option.active");
     
     selected.forEach(card =>{
-        let name = card.querySelector("h3").textContent;
+        let name = card.querySelector("h3").textContent.trim();
         const icon = priorityIcons[name];
         const tag = document.createElement("div");
         tag.className = "priority-tag";
@@ -404,9 +404,15 @@ if(editPriority){
 /* continue to app button */
 if(continueApp){
     continueApp.addEventListener("click",function(){
+
         defaultPriority.classList.remove("show");
         homePage.classList.add("show");
+
+        loadUserName();  // ⭐ add this
+
         generateHomePriorities();
+        generateRecentRoute();
+
     });
 }
 
@@ -417,7 +423,7 @@ function generateHomePriorities(){
     const selected = document.querySelectorAll(".priority-option.active");
     
     selected.forEach(card=>{
-        const name = card.querySelector("h3").textContent;
+        const name = card.querySelector("h3").textContent.trim();
         const icon = priorityIcons[name];
         const tag = document.createElement("div");
         tag.className="priority-tag";
@@ -426,19 +432,183 @@ function generateHomePriorities(){
     });
 }
 
+
+
+
 if(continueAppBottom){
     continueAppBottom.addEventListener("click",function(){
+
         defaultPriority.classList.remove("show");
         homePage.classList.add("show");
+
+        loadUserName();  // ⭐ add this
+
         generateHomePriorities();
+        generateRecentRoute();
+
     });
 }
+function generateRecentRoute(){
+
+    const container = document.querySelector(".routes-list");
+
+    if(!container) return;
+
+        container.innerHTML = `
+        <div class="route-card">
+
+        <div class="route-header">
+        <span class="route-time">Today, 7:30 AM</span>
+        <span class="route-badge">Fastest</span>
+        </div>
+
+        <div class="route-path">
+
+        <div class="route-point">
+        <div class="route-dot"></div>
+        <div class="route-location">Antipolo</div>
+        </div>
+
+        <div class="route-point">
+        <div class="route-dot destination"></div>
+        <div class="route-location">FEU Tech</div>
+        </div>
+
+        </div>
+
+        </div>
+    `;
+
+}
+
+const endTripBtn = document.getElementById("endTripBtn");
+const tripComplete = document.getElementById("tripComplete");
+
+if(endTripBtn){
+endTripBtn.addEventListener("click", function(){
+
+tripNavigation.classList.remove("show");
+tripComplete.classList.add("show");
+
+/* UPDATE SUMMARY */
+if(window.selectedRoute){
+
+document.getElementById("summaryRoute").textContent =
+window.selectedRoute.name;
+
+document.getElementById("summaryDuration").textContent =
+window.selectedRoute.time + " mins";
+
+}
+
+});
+}
+
+const crowdSlider = document.getElementById("crowdSlider");
+const crowdValue = document.getElementById("crowdValue");
+
+if(crowdSlider){
+
+crowdSlider.addEventListener("input", function(){
+
+let value = this.value;
+
+let label = "Moderate";
+
+if(value <= 3) label = "Low";
+else if(value <= 6) label = "Moderate";
+else label = "High";
+
+crowdValue.textContent = value;
+document.querySelector(".slider-display").innerHTML =
+value + "/10 - " + label;
+
+});
+
+}
+
+const submitFeedbackBtn = document.getElementById("submitFeedbackBtn");
+
+if(submitFeedbackBtn){
+submitFeedbackBtn.addEventListener("click", function(){
+
+tripComplete.classList.remove("show");
+homePage.classList.add("show");
+
+});
+}
+
+
+/* EMOJI FEEDBACK SELECTION */
+
+const emojiButtons = document.querySelectorAll(".emoji-btn");
+
+emojiButtons.forEach(btn => {
+
+btn.addEventListener("click", function(){
+
+/* toggle selection */
+btn.classList.toggle("selected");
+
+});
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* RESET ROUTE SLIDERS */
+
+const resetDefaults = document.getElementById("resetDefaults");
+
+if(resetDefaults){
+
+resetDefaults.addEventListener("click", function(){
+
+const sliders = document.querySelectorAll("#routeSliders input[type='range']");
+
+sliders.forEach(slider => {
+
+slider.value = 5;
+
+/* update the number text beside slider */
+const valueLabel = slider.parentElement.querySelector(".slider-value");
+
+if(valueLabel){
+valueLabel.textContent = "5/10";
+}
+
+});
+
+});
+
+}
+
+
 
 function loadUserName(){
-    const savedName = localStorage.getItem("ezrouteUser");
-    if(savedName){
-        document.getElementById("homeUserName").textContent = savedName + "? 👋";
-    }
+
+const savedName = localStorage.getItem("ezrouteUser");
+
+if(savedName){
+
+document.getElementById("homeUserName").textContent =
+savedName + "! 👋";
+
+}
+
 }
 
 /* routes and collapsible */
@@ -468,7 +638,7 @@ function generateRoutePriorities(){
     let names = [];
     
     selected.forEach(card => {
-        let name = card.querySelector("h3").textContent;
+        let name = card.querySelector("h3").textContent.trim();
         if(name === "Fastest") name = "Time";
         if(name === "Cheapest") name = "Cost";
         if(name === "Less Crowded") name = "Crowd";
@@ -521,14 +691,32 @@ if(toggleAdjust){
 const routeDatabase = [
     { name:"MRT-3 + Bus", transport:"train.png", type:"Transit", time:42, wait:"5 min", cost:"₱45", crowd:"Medium", scores:{time:9,cost:8,comfort:5,crowd:5}},
     { name:"Bus Direct", transport:"bus.png", type:"Bus", time:58, wait:"2 min", cost:"₱35", crowd:"High", scores:{time:6,cost:9,comfort:4,crowd:3}},
-    { name:"Grab Ride", transport:"car.png", type:"Private", time:50, wait:"3 min", cost:"₱180", crowd:"Low", scores:{time:7,cost:2,comfort:9,crowd:9}},
-    { name:"Jeep + MRT", transport:"jeepney.png", type:"Transit", time:55, wait:"6 min", cost:"₱40", crowd:"High", scores:{time:7,cost:7,comfort:3,crowd:3}},
+    { name:"Grab Ride", transport:"taxi.png", type:"Private", time:50, wait:"3 min", cost:"₱180", crowd:"Low", scores:{time:7,cost:2,comfort:9,crowd:9}},
+    { name:"Jeep + MRT", transport:"jeep.png", type:"Transit", time:55, wait:"6 min", cost:"₱40", crowd:"High", scores:{time:7,cost:7,comfort:3,crowd:3}},
     { name:"Bus + Walk", transport:"walk.png", type:"Transit", time:60, wait:"4 min", cost:"₱30", crowd:"Medium", scores:{time:6,cost:9,comfort:3,crowd:5}},
     { name:"MRT-3 + Jeep", transport:"train.png", type:"Transit", time:48, wait:"4 min", cost:"₱38", crowd:"Medium", scores:{time:8,cost:7,comfort:5,crowd:5}},
     { name:"Express Bus", transport:"bus.png", type:"Bus", time:52, wait:"5 min", cost:"₱50", crowd:"Medium", scores:{time:7,cost:7,comfort:5,crowd:6}},
-    { name:"Grab Share", transport:"car.png", type:"Private", time:55, wait:"4 min", cost:"₱120", crowd:"Low", scores:{time:7,cost:3,comfort:8,crowd:9}},
-    { name:"Jeep Only", transport:"jeepney.png", type:"Transit", time:70, wait:"6 min", cost:"₱25", crowd:"High", scores:{time:4,cost:10,comfort:2,crowd:2}},
+    { name:"Grab Share", transport:"taxi.png", type:"Private", time:55, wait:"4 min", cost:"₱120", crowd:"Low", scores:{time:7,cost:3,comfort:8,crowd:9}},
+    { name:"Jeep Only", transport:"jeep.png", type:"Transit", time:70, wait:"6 min", cost:"₱25", crowd:"High", scores:{time:4,cost:10,comfort:2,crowd:2}},
     { name:"Bus + MRT", transport:"bus.png", type:"Transit", time:50, wait:"3 min", cost:"₱40", crowd:"Medium", scores:{time:8,cost:8,comfort:5,crowd:5}},
+
+ /* =============================== */
+    /* ANTIPOLO → FEU TECH ROUTES     */
+    /* =============================== */
+
+    { name:"LRT-2 Direct", transport:"train.png", type:"Transit", time:43, wait:"3 min", cost:"₱30", crowd:"Medium", scores:{time:9,cost:9,comfort:7,crowd:6}},
+
+    { name:"LRT-2 + Walk", transport:"train.png", type:"Transit", time:48, wait:"3 min", cost:"₱30", crowd:"Medium", scores:{time:8,cost:9,comfort:6,crowd:6}},
+
+    { name:"Jeep + LRT-2", transport:"jeep.png", type:"Transit", time:55, wait:"5 min", cost:"₱35", crowd:"High", scores:{time:7,cost:8,comfort:4,crowd:4}},
+
+    { name:"Bus + LRT-2", transport:"bus.png", type:"Transit", time:52, wait:"4 min", cost:"₱40", crowd:"Medium", scores:{time:7,cost:7,comfort:5,crowd:5}},
+
+    { name:"Grab Direct", transport:"taxi.png", type:"Private", time:50, wait:"2 min", cost:"₱250", crowd:"Low", scores:{time:8,cost:1,comfort:10,crowd:10}}
+
+
+
+
 ];
 
 function generateExplanation(route){
@@ -667,17 +855,35 @@ document.addEventListener("click", function(e){
         return;
     }
 
-    /* STEP 2: START ROUTE */
-    if(btn.textContent.includes("Start")){
-        console.log("Starting route navigation...");
-        routeOptions.classList.remove("show");
-        tripNavigation.classList.add("show");
+            /* STEP 2: START ROUTE */
+         if(btn.textContent.includes("Start")){
 
-        /* CRITICAL: Wait for DOM to render before loading map */
-        setTimeout(() => {
-            loadNavigationMap();
-        }, 100);
-    }
+            console.log("Starting route navigation...");
+
+            /* GET ROUTE CARD */
+            const routeCard = btn.closest(".route-card");
+
+            /* GET ROUTE NAME */
+            const routeName = routeCard.querySelector(".route-name").textContent;
+
+            /* FIND ROUTE IN DATABASE */
+            const selected = routeDatabase.find(r => r.name === routeName);
+
+            /* SAVE ROUTE */
+            window.selectedRoute = selected;
+
+            /* SWITCH SCREEN */
+            routeOptions.classList.remove("show");
+            tripNavigation.classList.add("show");
+
+            /* LOAD MAP */
+            setTimeout(()=>{
+                loadNavigationMap();
+            },100);
+
+            }
+
+
 });
 
 /* ================= */
@@ -714,10 +920,9 @@ function loadNavigationMap(){
         navMap = null;
     }
 
-    /* ANTIPOLO TO MOA ROUTE */
-    const antipolo = [14.5863, 121.1775]; // Antipolo City
-    const moa = [14.5350, 120.9823]; // SM Mall of Asia
-
+    /* ANTIPOLO TO FEU TECH */
+  const antipolo = [14.5863, 121.1775];   // Antipolo
+const feuTech = [14.5995, 120.9880]; 
     try {
         console.log("Creating map...");
         
@@ -751,7 +956,7 @@ function loadNavigationMap(){
 
         console.log("✅ Start marker added");
 
-        /* END MARKER (MOA) */
+        /* END MARKER (FEU) */
         const endIcon = L.divIcon({
             className: 'custom-marker',
             html: `<div style="background:#f59e0b;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:bold;border:4px solid white;box-shadow:0 4px 12px rgba(0,0,0,0.3);">B</div>`,
@@ -759,14 +964,14 @@ function loadNavigationMap(){
             iconAnchor: [20, 20]
         });
 
-        L.marker(moa, {icon: endIcon})
+        L.marker(feuTech, {icon: endIcon})
             .addTo(navMap)
-            .bindPopup("<b>Destination: SM MOA</b>");
+            .bindPopup("<b>Destination: FEU Tech</b>");
 
         console.log("✅ End marker added");
 
         /* ROUTE LINE (Simulated path) */
-        const routeLine = L.polyline([antipolo, moa], {
+        const routeLine = L.polyline([antipolo, feuTech], {
             color: '#3b82f6',
             weight: 5,
             opacity: 0.7,
@@ -783,8 +988,8 @@ function loadNavigationMap(){
             iconAnchor: [12, 12]
         });
 
-        const currentLat = antipolo[0] + (moa[0] - antipolo[0]) * 0.3;
-        const currentLng = antipolo[1] + (moa[1] - antipolo[1]) * 0.3;
+        const currentLat = antipolo[0] + (feuTech[0] - antipolo[0]) * 0.3;
+        const currentLng = antipolo[1] + (feuTech[1] - antipolo[1]) * 0.3;
 
         L.marker([currentLat, currentLng], {icon: currentIcon})
             .addTo(navMap)
@@ -807,3 +1012,5 @@ function loadNavigationMap(){
         console.error("❌ Error loading map:", error);
     }
 }
+
+
