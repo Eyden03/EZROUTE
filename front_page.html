@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EzRoute</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@400;600;700&family=Sora:wght@400;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800&family=Sora:wght@400;500;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+</head>
+
+<body>
+
+    <div class="phone">
+
+        <div class="notch"></div>
+
+        <!-- SPLASH SCREEN -->
+        <div class="splash" id="splash">
+
+            <div class="splash-logo">
+                <img src="logo_transparent.png" class="logo">
+            </div>
+
+            <div class="splash-title">EzRoute</div>
+            <div class="splash-tagline">Smarter Routes, Faster Journeys</div>
+
+        </div>
+
+
+        <!-- ONBOARDING SCREEN 1 -->
+        <div class="onboarding-screen" id="onboarding">
+
+            <div class="onboarding">
+
+                <div class="onboarding-visual">
+                    <div class="illustration">
+
+                        <div class="illustration-circle" style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);"></div>
+
+                        <div class="illustration-icon">
+                            <img src="sad.png" alt="Sad emoji">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="onboarding-content">
+
+                    <h2 class="onboarding-title">Tired of Wasted Time?</h2>
+
+                    <p class="onboarding-text">
+                        Commuters waste 3.2 hours weekly due to unpredictable traffic and poor route choices.
+                    </p>
+
+                    <div class="pagination">
+                        <div class="pagination-dot active"></div>
+                        <div class="pagination-dot"></div>
+                        <div class="pagination-dot"></div>
+                    </div>
+
+                    <button class="btn-primary" id="next1">Next</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ONBOARDING SCREEN 2 -->
+        <div class="onboarding-screen" id="onboarding2">
+
+            <div class="onboarding">
+
+                <div class="onboarding-visual">
+
+                    <div class="illustration">
+
+                        <div class="illustration-circle" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);"></div>
+
+                        <div class="illustration-icon">
+                        <img src="target.png" alt="Target">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="onboarding-content">
+
+                    <h2 class="onboarding-title">Pick Your Priorities</h2>
+
+                    <p class="onboarding-text">
+                        Choose what matters - time, cost, or comfort. EzRoute finds your perfect match.
+                    </p>
+
+                    <div class="pagination">
+                        <div class="pagination-dot"></div>
+                        <div class="pagination-dot active"></div>
+                        <div class="pagination-dot"></div>
+                    </div>
+
+                    <button class="btn-primary" id="next2">Next</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ONBOARDING SCREEN 3 / WELCOME -->
+
+        <div class="onboarding-screen" id="welcome">
+
+            <div class="onboarding">
+
+                <div class="onboarding-visual">
+
+                    <div class="illustration">
+
+                            <div class="illustration-circle welcome-circle"></div>
+
+                            <div class="illustration-icon">
+                            <img src="wlc.png" alt="Welcome">
+                            </div>
+
+                        </div>
+
+                </div>
+
+                <div class="onboarding-content">
+
+                    <h2 class="onboarding-title">Welcome to EzRoute</h2>
+
+                    <p class="onboarding-text">
+                        Your smart companion for stress-free commuting
+                    </p>
+
+                    <button class="btn-primary" id="createAccount" style="margin-bottom:12px;">
+                        Create Account
+                    </button>
+
+                    <button class="btn-outline" id="signIn" style="margin-bottom:24px;">
+                        Sign In
+                    </button>
+
+                    <button class="btn-secondary" id="continueGuest">
+                        Continue as Guest
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIGN UP SCREEN -->
+
+        <div class="onboarding-screen" id="signup">
+
+            <div class="auth-screen">
+
+                        <button type="button" class="back-button" id="backSignup">←</button>
+
+                <h1 class="auth-title">Create Account</h1>
+
+                <p class="auth-subtitle">
+                    Join EzRoute and start commuting smarter
+                </p>
+
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="signupName" class="form-input" placeholder="Aidhen Angel Pocsidio">                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="aidhen.angel@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+
+                <button class="btn-primary" style="margin-top:10px;">
+                    Create Account
+                </button>
+
+                <div class="divider">
+                    <span class="divider-text">or continue with</span>
+                </div>
+
+                <div class="social-login">
+                    
+                    <button class="social-btn">
+                        <img src="google.png" class="social-icon">
+                        Google
+                        </button>
+
+                        <button class="social-btn">
+                        <img src="fb.png" class="social-icon">
+                        Facebook
+                        </button>
+                </div>
+
+                <div class="auth-footer">
+                    <p class="auth-footer-text">
+                        Already have an account?
+                        <a href="#" id="goLogin">Sign In</a>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOGIN SCREEN -->
+
+        <div class="onboarding-screen" id="login">
+
+            <div class="auth-screen">
+
+                <button type="button" class="back-button" id="backLogin">←</button>
+
+                <h1 class="auth-title">Welcome Back</h1>
+
+                <p class="auth-subtitle">
+                    Sign in to continue your journey
+                </p>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="aidhen.angel@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+
+                <div style="text-align:right;margin-bottom:20px;">
+                    <a href="#" style="font-size:14px;color:var(--primary);font-weight:600;text-decoration:none;">
+                        Forgot Password?
+                    </a>
+                </div>
+
+                <button class="btn-primary">
+                    Sign In
+                </button>
+
+                <div class="divider">
+                    <span class="divider-text">or continue with</span>
+                </div>
+
+                <div class="social-login">
+
+                    <button class="social-btn">
+                        <img src="google.png" class="social-icon">
+                        Google
+                    </button>
+
+                    <button class="social-btn">
+                        <img src="fb.png" class="social-icon">
+                        Facebook
+                    </button>
+
+                </div>
+
+                <div class="auth-footer">
+                    <p class="auth-footer-text">
+                        Don't have an account?
+                        <a href="#" id="goSignup">Sign Up</a>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- LOCATION PERMISSION SCREEN -->
+
+        <div class="onboarding-screen" id="permission">
+
+            <div class="permission-screen">
+
+                <div class="permission-visual">
+
+                <div class="permission-icon">
+                    <img src="pin.png" class="permission-img">
+                    </div>
+
+                </div>
+
+                        <h2 style="font-family:'Sora',sans-serif;font-size:28px;color:var(--dark);margin-bottom:15px;font-weight:700;">
+                        Enable Location
+                        </h2>
+
+                        <p style="font-size:15px;color:var(--gray);line-height:1.6;margin-bottom:20px;padding:0 10px;">
+                        EzRoute needs your location to provide accurate route recommendations and real-time updates.
+                        </p>
+
+                        <button class="btn-primary" id="allowLocation">
+                        Allow Location Access
+                        </button>
+
+                        <button class="btn-secondary" id="skipLocation" style="margin-top:14px;">
+                        Skip for Now
+                        </button>
+
+            </div>
+
+        </div>
+
+
+<!--  profile selection -->
+        <!-- PROFILE SELECTION SCREEN -->
+
+        <div class="onboarding-screen" id="profile">
+
+            <div class="profile-screen">
+
+            <!-- TOP NAVIGATION -->
+                <div class="top-nav">
+
+                    <button class="back-button" id="backProfile">←</button>
+
+                    <div class="pagination">
+                    <div class="pagination-dot active"></div>
+                    <div class="pagination-dot"></div>
+                    <div class="pagination-dot"></div>
+                </div>
+
+                </div>
+
+
+                <!-- HEADER -->
+
+                <div class="profile-header">
+
+                    <h2 class="profile-title">Choose Your Profile</h2>
+
+                    <p class="profile-subtitle">
+                    Help us personalize your experience
+                    </p>
+
+                </div>
+
+
+                <!-- PROFILE GRID -->
+
+                <div class="profile-grid">
+
+                <!-- Daily Commuter -->
+                <div class="profile-card profile-option">
+
+
+                    <div class="profile-icon">
+                    <img src="com.png" alt="Commuter">
+                    </div>
+
+                    <h3>Daily Commuter</h3>
+                    <p>Regular work commutes</p>
+
+                </div>
+
+
+                <!-- Student -->
+                <div class="profile-card profile-option">
+
+
+                    <div class="profile-icon">
+                    <img src="stud.png" alt="Student">
+                    </div>
+
+                    <h3>Student</h3>
+                    <p>Going to school daily</p>
+
+                </div>
+
+
+                <!-- Tourist -->
+                <div class="profile-card profile-option">
+
+                    <div class="profile-icon">
+                    <img src="tourist.png" alt="Tourist">
+                    </div>
+
+                    <h3>Tourist</h3>
+                    <p>Exploring the city</p>
+
+                </div>
+
+
+                <!-- PWD -->
+                <div class="profile-card profile-option">
+
+                    <div class="profile-icon">
+                    <img src="pwd.png" alt="PWD">
+                    </div>
+
+                    <h3>PWD</h3>
+                    <p>Accessible routes needed</p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FOOTER -->
+
+                <div class="profile-footer">
+
+                    <button class="btn-primary" id="continueProfile">
+                    Continue
+                    </button>
+
+                    <button class="btn-secondary" id="skipProfile">
+                    Skip for Now
+                    </button>
+
+                    <p class="profile-note">
+                    You can change this later in settings
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- CHOOSE PRIORITIES SCREEN -->
+
+        <div class="onboarding-screen" id="priorities">
+
+            <div class="priorities-screen">
+
+                <div class="priorities-nav">
+
+                    <button class="back-button" id="backPriorities">←</button>
+
+                        <h2 class="priorities-title">Choose Priorities</h2>
+
+                        <div class="nav-spacer"> </div>
+
+                        </div>
+
+
+                    <div class="priorities-content">
+
+                    <div class="priorities-intro">
+
+                        <h3>What matters to you?</h3>
+                        <p>Select one or more priorities for this trip</p>
+
+                        </div>
+
+
+                    <div class="profile-grid">
+
+                <!-- FASTEST -->
+                <div class="profile-card priority-option">
+
+                    <div class="priority-icon">
+                        <img src="fastest.png">
+                        </div>
+
+                        <h3>Fastest</h3>
+                        <p>Minimize travel time</p>
+
+                        </div>
+
+                <!-- CHEAPEST -->
+                <div class="profile-card priority-option">
+
+                    <div class="priority-icon">
+                        <img src="cheapest.png">
+                        </div>
+
+                        <h3>Cheapest</h3>
+                        <p>Save money on fare</p>
+
+                </div>
+
+
+                <!-- LESS CROWDED -->
+                <div class="profile-card priority-option">
+
+                    <div class="priority-icon">
+                        <img src="crowded.png">
+                        </div>
+
+                        <h3>Less Crowded</h3>
+                        <p>Avoid packed vehicles</p>
+
+                </div>
+
+
+                <!-- COMFORT -->
+                <div class="profile-card priority-option">
+
+                    <div class="priority-icon">
+                        <img src="comfort.png">
+                        </div>
+
+                        <h3>Comfortable</h3>
+                        <p>More comfortable ride</p>
+
+                </div>
+
+
+                <!-- SHORT WAIT -->
+                <div class="profile-card priority-option">
+
+                    <div class="priority-icon">
+                        <img src="wait.png">
+                        </div>
+
+                        <h3>Short Wait</h3>
+                        <p>Less waiting time</p>
+
+                </div>
+
+
+                <!-- LESS WALK -->
+                <div class="profile-card priority-option">
+
+                    <div class="priority-icon">
+                        <img src="walk.png">
+                        </div>
+
+                        <h3>Less Walking</h3>
+                        <p>Fewer transfers</p>
+
+                        </div>
+
+                    </div>
+
+
+                        <div class="selected-count">
+                        You selected <strong id="priorityCount">0</strong> priorities
+                        </div>
+                        
+                        <div class="priority-tip">
+                        <span class="tip-icon">💡</span>
+                        <p>These will be your defaults. You can change them anytime in Settings.</p>
+                        </div>
+
+                        
+
+                    </div>
+
+
+                    <div class="priorities-footer">
+
+                        <button class="btn-primary" id="findRoutes" disabled>
+                        Continue
+                        </button>
+
+                </div>
+
+            </div>
+        </div>
+
+
+         <!-- PREFERENCE SLIDERS SCREEN -->
+
+        <div class="onboarding-screen" id="preferenceSliders">
+
+            <div class="sliders-screen">
+
+                <div class="sliders-header">
+
+                    <button class="back-button" id="backSliders">←</button>
+
+                    <h2 class="sliders-title">Adjust Your Preferences</h2>
+
+                    <p class="sliders-subtitle">
+                    Slide to set importance (0 = Not Important, 10 = Very Important)
+                    </p>
+
+                </div>
+
+
+                <div class="sliders-content">
+
+                <!-- SLIDERS WILL BE INSERTED HERE -->
+                <div id="slidersContainer"></div>
+                <!-- TOGGLES -->
+
+                <div class="toggle-section">
+
+                    <div class="toggle-item">
+
+                        <div class="toggle-left">
+                            <img src="mintrans.png" class="toggle-icon">
+                            <span>Minimize Transfers</span>
+                        </div>
+
+                            <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider-toggle"></span>
+                            </label>
+
+                        </div>
+
+
+                        <div class="toggle-item">
+
+                        <div class="toggle-left">
+                            <img src="priosafety.png" class="toggle-icon">
+                            <span>Prioritize Safety</span>
+                            </div>
+
+                            <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider-toggle"></span>
+                        </label>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="sliders-footer">
+
+                <button class="btn-primary" id="savePreferences">
+                Save & Continue
+                </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADVANCED FILTERS SCREEN -->
+
+        <div class="onboarding-screen" id="advancedFilters">
+
+            <div class="filters-screen">
+
+            <!-- HEADER -->
+
+                <div class="filters-header">
+
+                    <button class="back-button" id="backAdvanced">←</button>
+
+                    <h2 class="filters-title">Advanced Filters</h2>
+
+                    </div>
+
+
+                    <!-- SCROLLABLE CONTENT -->
+
+                        <div class="filters-content">
+
+                    <!-- TRANSPORT MODES -->
+
+                    <div class="filter-section">
+
+                        <label class="filter-label">Transport Modes</label>
+
+                        <div class="toggle-row">
+                            <div class="toggle-left">
+                                <img src="train.png" class="toggle-icon">
+                                <span>MRT/LRT</span>
+                                </div>
+                                <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider-toggle"></span>
+                            </label>
+                    </div>
+
+                    <div class="toggle-row">
+                        <div class="toggle-left">
+                            <img src="bus.png" class="toggle-icon">
+                            <span>Bus</span>
+                            </div>
+                            <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider-toggle"></span>
+                            </label>
+                        </div>
+
+                    <div class="toggle-row">
+                        <div class="toggle-left">
+                            <img src="jeep.png" class="toggle-icon">
+                            <span>Jeepney</span>
+                            </div>
+                            <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider-toggle"></span>
+                        </label>
+                        </div>
+
+                    <div class="toggle-row">
+                        <div class="toggle-left">
+                            <img src="taxi.png" class="toggle-icon">
+                            <span>Ride-share (Grab/Uber)</span>
+                            </div>
+                            <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider-toggle"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-row">
+                        <div class="toggle-left">
+                            <img src="walk.png" class="toggle-icon">
+                            <span>Walking</span>
+                            </div>
+                            <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider-toggle"></span>
+                        </label>
+                    </div>
+
+                    </div>
+
+
+                    <!-- MAX TRANSFERS -->
+
+                    <div class="filter-section">
+
+                        <label class="filter-label">Max Transfers</label>
+
+                            <div class="slider-box">
+
+                            <input type="range" min="0" max="5" value="2" class="slider-input" id="transferSlider">
+
+                            <div class="slider-display">
+                            <span id="transferValue">2</span> transfers maximum
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MAX WALKING DISTANCE -->
+
+                    <div class="filter-section">
+
+                        <label class="filter-label">Max Walking Distance</label>
+
+                            <div class="slider-box">
+
+                            <input type="range" min="0" max="2000" step="100" value="500" class="slider-input" id="walkingSlider">
+
+                            <div class="slider-display">
+                            <span id="walkingValue">500</span> meters
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADDITIONAL PREFERENCES -->
+
+                    <div class="filter-section">
+
+                        <label class="filter-label">Additional Preferences</label>
+
+                        <div class="toggle-row">
+                            <div class="toggle-left">
+                            <img src="pwd.png" class="toggle-icon">
+                            <span>Accessibility Required</span>
+                            </div>
+                            <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider-toggle"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-row">
+                        <div class="toggle-left">
+                            <img src="ac.png" class="toggle-icon">
+                            <span>Air-Conditioned Only</span>
+                            </div>
+                            <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider-toggle"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-row">
+                        <div class="toggle-left">
+                            <img src="rain.png" class="toggle-icon">
+                            <span>Covered Routes (Rainy Day)</span>
+                            </div>
+                            <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider-toggle"></span>
+                        </label>
+                    </div>
+
+                    </div>
+
+                    </div>
+
+
+                    <!-- FOOTER BUTTON -->
+
+                    <div class="filters-footer">
+
+                    <button class="btn-primary">
+                    Apply Filters
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DEFAULT PRIORITY SCREEN -->
+
+        <div class="onboarding-screen" id="defaultPriority">
+
+            <div class="default-screen">
+
+                <!-- HEADER -->
+
+                <div class="default-header">
+
+                    <button class="back-button" id="backDefault">←</button>
+
+                    <h2 class="default-title">Default Priority</h2>
+
+                    <button class="edit-btn" id="editPriority">Edit</button>
+
+                </div>
+
+
+                <!-- SCROLLABLE CONTENT -->
+
+                <div class="default-content">
+
+                     <!-- FOOTER BUTTON -->
+                <div class="default-footer">
+                    <button class="btn-primary" id="continueApp">Continue to App</button>
+                </div>
+
+
+
+                <!-- CURRENT DEFAULT CARD -->
+
+                <div class="default-card">
+
+                    <span class="tip-icon">✅</span>
+
+                    <h3>Current Default</h3>
+
+                    <p>This priority will be auto-selected for all trips</p>
+
+                </div>
+
+
+                <!-- PRIORITY SUMMARY -->
+
+                <div class="priority-summary">
+
+                    <div class="summary-label">Selected Priorities</div>
+
+                    <div class="priority-tags" id="priorityTags">
+
+                    <!-- dynamically inserted -->
+
+                </div>
+
+
+                <div class="summary-label">Weights</div>
+
+                    <div class="weights-list" id="weightsList">
+
+                    <!-- dynamically inserted -->
+
+                    </div>
+
+                </div>
+
+
+                <!-- TIP BOX -->
+
+                <div class="priority-tip">
+
+                    <span class="tip-icon">💡</span>
+
+                    <p>
+                    You can always override these settings for individual trips by using the "Change Priority" button during route planning.
+                    </p>
+
+                    </div>
+
+                </div>
+
+                   <!-- CONTINUE BUTTON (reused from Advanced Filters) -->
+                <div class="bottom-action">
+                    <button class="btn-primary" id="continueAppBottom">Continue to App</button>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+        <!-- HOME PAGE -->
+            <div class="onboarding-screen" id="homePage">
+
+            <div class="home-screen">
+
+            <!-- HEADER -->
+            <div class="home-header">
+
+            <div class="header-top">
+            <div>
+            <div class="greeting">How are you,</div>
+            <div class="user-name" id="homeUserName">Aidhen? 👋</div>
+            </div>
+
+            <button class="notification-btn">
+            <img src="notifications.png" width="20">
+            <!--<span class="notification-badge"></span>-->
+            </button>
+            </div>
+
+            <div class="location-display">
+            <img src="pin.png" width="16">
+            <span class="location-text">Current: Metro Manila</span>
+            <button class="change-btn">Change</button>
+            </div>
+
+            </div>
+
+
+            <!-- WHERE ARE YOU GOING CARD -->
+            <div class="quick-action">
+
+            <div class="quick-action-title">Where are you going?</div>
+
+            <div class="route-inputs">
+
+            <div class="route-point-row">
+
+            <div class="destination-input">
+
+            <div class="route-icon start"></div>
+
+            <span class="input-text">Your Location</span>
+
+            </div>
+
+            </div>
+
+            <div class="route-line"></div>
+
+            <div class="route-point-row">
+
+            <div class="destination-input">
+
+            <div class="route-icon">
+            <img src="logo_transparent.png">
+            </div>
+
+            <span class="input-text">Choose Destination</span>
+
+            </div>
+
+            </div>
+
+            </div>
+
+            <hr class="route-divider">
+
+            <div class="default-priority-row">
+
+            <div class="priority-label">
+            Using your default priorities:
+            </div>
+
+            <div class="priority-tags" id="homePriorities"></div>
+
+            <div class="change-priority">
+            ⚙ Change
+            </div>
+
+            </div>
+
+            <button class="find-route-btn">Find Best Route</button>
+
+            </div>
+
+
+            <!-- SCROLLABLE CONTENT -->
+            <div class="content">
+
+
+            <!-- SAVED ROUTES -->
+            <div class="section">
+
+            <div class="section-header">
+            <h3 class="section-title">Saved Routes</h3>
+            <a class="see-all">Manage</a>
+            </div>
+
+            <div class="saved-routes-scroll">
+
+            <div class="saved-route-card">
+            <div class="saved-route-icon">🏠</div>
+            <div class="saved-route-name">Home</div>
+            <div class="saved-route-desc">Apalit, Pampanga</div>
+            </div>
+
+            <div class="saved-route-card">
+            <div class="saved-route-icon">🎓</div>
+            <div class="saved-route-name">School</div>
+            <div class="saved-route-desc">FEU Tech</div>
+            </div>
+
+            <div class="saved-route-card">
+            <div class="saved-route-icon">💼</div>
+            <div class="saved-route-name">Work</div>
+            <div class="saved-route-desc">Makati CBD</div>
+            </div>
+
+            </div>
+
+            </div>
+
+
+            <!-- THIS WEEK -->
+            <div class="section">
+
+            <div class="section-header">
+            <h3 class="section-title">This Week</h3>
+            </div>
+
+            <div class="stats-grid">
+
+            <div class="stat-card">
+            <img src="fastest.png" class="stat-icon">
+            <div class="stat-value">2.1h</div>
+            <div class="stat-label">Time Saved</div>
+            </div>
+
+            <div class="stat-card">
+            <img src="cheapest.png" class="stat-icon">
+            <div class="stat-value">₱180</div>
+            <div class="stat-label">Money Saved</div>
+            </div>
+
+            <div class="stat-card">
+            <img src="train.png" class="stat-icon">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Routes Taken</div>
+            </div>
+
+            <div class="stat-card">
+            <img src="stress.png" class="stat-icon">
+            <div class="stat-value">85%</div>
+            <div class="stat-label">Stress Reduced</div>
+            </div>
+
+            </div>
+
+            </div>
+
+
+            <!-- RECENT ROUTES -->
+            <div class="section">
+
+            <div class="section-header">
+            <h3 class="section-title">Recent Routes</h3>
+            <a class="see-all">See all</a>
+            </div>
+
+            <div class="routes-list">
+
+            <div class="route-card">
+
+            <div class="route-header">
+            <span class="route-time">Today, 7:30 AM</span>
+            <span class="route-badge">Fastest</span>
+            </div>
+
+            <div class="route-path">
+
+            <div class="route-point">
+            <div class="route-dot"></div>
+            <div class="route-location">Antipolo</div>
+            </div>
+
+            <div class="route-point">
+            <div class="route-dot destination"></div>
+            <div class="route-location">SM Moa</div>
+            </div>
+
+            </div>
+
+            </div>
+
+            </div>
+
+            </div>
+
+            </div> <!-- END CONTENT -->
+
+
+            <!-- TOOLBAR -->
+            <div class="bottom-nav">
+
+            <button class="nav-item active">
+            <img src="home.png" class="nav-icon">
+            <span class="nav-label">Home</span>
+            </button>
+
+            <button class="nav-item">
+            <img src="routes.png" class="nav-icon">
+            <span class="nav-label">Routes</span>
+            </button>
+
+            <button class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+            </button>
+
+            </div>
+
+            </div>
+            </div>
+
+
+
+
+
+            <!-- ROUTE OPTIONS PAGE -->
+
+            <div class="onboarding-screen" id="routeOptions">
+
+            <div class="route-options-screen">
+
+            <!-- HEADER -->
+
+            <div class="route-options-header">
+
+            <button class="back-button" id="backHome">←</button>
+
+            <h2 class="route-options-title">Route Options</h2>
+
+            <button class="menu-btn">⋮</button>
+
+            </div>
+
+
+            <!-- SCROLLABLE CONTENT -->
+
+            <div class="route-options-content">
+
+            <!-- ORIGIN / DESTINATION -->
+
+            <div class="route-location-card">
+
+            <div class="route-loc">
+
+            <div class="loc-label">From</div>
+
+            <div class="loc-value">Antipolo</div>
+
+            </div>
+
+            <div class="route-arrow">→</div>
+
+            <div class="route-loc">
+
+            <div class="loc-label">To</div>
+
+            <div class="loc-value">MOA</div>
+
+            </div>
+
+            </div>
+
+
+            <div class="routes-found">
+            Found <strong id="routeCount">0</strong> routes
+                <span id="routePriorities"></span>
+            </div>
+
+            <!-- COLLAPSIBLE SLIDERS -->
+
+            <div class="adjust-trip">
+
+            <button class="adjust-toggle" id="toggleAdjust">
+
+            <span>Adjust for this trip</span>
+
+            <span id="adjustIcon">▲</span>
+
+            </button>
+
+
+            <div class="adjust-content" id="adjustContent">
+
+            <div id="routeSliders"></div>
+
+            <button class="reset-button">Reset to Defaults</button>
+
+            <div class="tip-box route-tip">
+
+            <span class="tip-icon">💡</span>
+
+            <p>
+            Smart Tip: Adjust priorities to see different routes.
+            </p>
+
+            </div>
+            </div>
+
+            </div>
+
+
+            <!-- ROUTE OPTIONS -->
+
+            <div class="routes-container">
+
+            <!-- RECOMMENDED ROUTE -->
+
+            <div class="route-card recommended">
+
+            <div class="recommended-badge">
+            ✨ RECOMMENDED
+            </div>
+
+            <div class="route-header">
+
+            <div>
+
+            <div class="route-name">MRT-3 + Bus</div>
+
+            <div class="route-type">
+            <img src="train.png" class="route-transport">
+            Transit
+            </div>
+
+            </div>
+
+            <div class="route-time">
+
+            <div class="time-value">42</div>
+            <div class="time-label">minutes</div>
+
+            </div>
+
+            </div>
+
+
+            <div class="route-details-grid">
+
+            <div class="detail-item">
+            <img src="wait.png" class="detail-icon">
+            <div class="detail-value">5 min</div>
+            <div class="detail-label">WAIT</div>
+            </div>
+
+            <div class="detail-item">
+            <img src="cheapest.png" class="detail-icon">
+            <div class="detail-value">₱45</div>
+            <div class="detail-label">COST</div>
+            </div>
+
+            <div class="detail-item">
+            <img src="crowded.png" class="detail-icon">
+            <div class="detail-value">Medium</div>
+            <div class="detail-label">CROWD</div>
+            </div>
+
+            </div>
+
+
+            <div class="route-explanation">
+
+            <div class="explanation-title">
+            <img src="fastest.png" class="explanation-icon">
+            Why this route?
+            </div>
+
+            <div class="explanation-text">
+            Best balance of time and cost. 15% faster than alternatives and ₱20 cheaper than ride-sharing.
+            </div>
+
+            </div>
+
+            <button class="select-route-btn">
+            Start This Route
+            </button>
+
+            </div>
+
+
+            <!-- ROUTE OPTION 2 -->
+
+            <div class="route-card">
+
+            <div class="route-header">
+
+            <div>
+
+            <div class="route-name">Bus Direct</div>
+
+            <div class="route-type">
+            <img src="bus.png" class="route-transport">
+            Bus
+            </div>
+
+            </div>
+
+            <div class="route-time">
+
+            <div class="time-value alt">58</div>
+            <div class="time-label">minutes</div>
+
+            </div>
+
+            </div>
+
+
+            <div class="route-details-grid">
+
+            <div class="detail-item">
+            <img src="wait.png" class="detail-icon">
+            <div class="detail-value">2 min</div>
+            <div class="detail-label">WAIT</div>
+            </div>
+
+            <div class="detail-item">
+            <img src="cheapest.png" class="detail-icon">
+            <div class="detail-value">₱35</div>
+            <div class="detail-label">COST</div>
+            </div>
+
+            <div class="detail-item">
+            <img src="crowded.png" class="detail-icon">
+            <div class="detail-value">High</div>
+            <div class="detail-label">CROWD</div>
+            </div>
+
+            </div>
+
+            <button class="select-route-btn alt">
+            Select Route
+            </button>
+
+            </div>
+
+
+
+            <!-- ROUTE OPTION 3 -->
+
+            <div class="route-card">
+
+            <div class="route-header">
+
+            <div>
+
+            <div class="route-name">Ride-share (Grab)</div>
+
+            <div class="route-type">
+            <img src="car.png" class="route-transport">
+            Private
+            </div>
+
+            </div>
+
+            <div class="route-time">
+
+            <div class="time-value alt">50</div>
+            <div class="time-label">minutes</div>
+
+            </div>
+
+            </div>
+
+            <div class="route-details-grid">
+
+            <div class="detail-item">
+            <img src="wait.png" class="detail-icon">
+            <div class="detail-value">3 min</div>
+            <div class="detail-label">WAIT</div>
+            </div>
+
+            <div class="detail-item">
+            <img src="cheapest.png" class="detail-icon">
+            <div class="detail-value">₱180</div>
+            <div class="detail-label">COST</div>
+            </div>
+
+            <div class="detail-item">
+            <img src="crowded.png" class="detail-icon">
+            <div class="detail-value">Low</div>
+            <div class="detail-label">CROWD</div>
+            </div>
+
+            </div>
+
+            <button class="select-route-btn alt">
+            Select Route
+            </button>
+
+            </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<!-- TRIP NAVIGATION PAGE -->
+
+<div class="onboarding-screen" id="tripNavigation">
+
+<div class="route-options-screen">
+
+<!-- HEADER -->
+
+<div class="route-options-header">
+<button class="back-button" id="backToRoutes">←</button>
+<h2 class="route-options-title">Trip Navigation</h2>
+</div>
+
+
+<div class="route-options-content">
+
+<!-- MAP UI PLACEHOLDER -->
+
+<div class="map-container">
+    <div id="navMap"></div>
+</div>
+
+</div>
+
+
+<div class="nav-info-card">
+
+<!-- CURRENT STATUS -->
+
+<div class="nav-status">
+
+<div class="status-icon">
+<img src="train.png" style="width:22px;">
+</div>
+
+<div class="status-text">
+<div class="status-label">Current Status</div>
+<div class="status-value">On MRT-3 to Ayala</div>
+</div>
+
+</div>
+
+
+<!-- ETA INFO -->
+
+<div class="eta-display">
+
+<div class="eta-item">
+<div class="eta-value">8:42</div>
+<div class="eta-label">ETA</div>
+</div>
+
+<div style="width:1px;background:#e2e8f0;"></div>
+
+<div class="eta-item">
+<div class="eta-value">28</div>
+<div class="eta-label">mins left</div>
+</div>
+
+<div style="width:1px;background:#e2e8f0;"></div>
+
+<div class="eta-item">
+<div class="eta-value">₱45</div>
+<div class="eta-label">Total cost</div>
+</div>
+
+</div>
+
+
+<!-- TRIP STEPS -->
+
+<div class="trip-steps">
+
+<div style="font-size:14px;font-weight:700;margin-bottom:12px;">
+Trip Steps
+</div>
+
+
+<div class="step-item">
+
+<div class="step-icon completed">✓</div>
+
+<div class="step-content">
+<div class="step-title">Walk to MRT Station</div>
+<div class="step-desc">Quezon Avenue Station</div>
+<div class="step-time">Completed</div>
+</div>
+
+</div>
+
+
+<div class="step-item">
+
+<div class="step-icon active">
+<img src="train.png" width="20">
+</div>
+
+<div class="step-content">
+<div class="step-title">MRT-3 to Ayala</div>
+<div class="step-desc">9 stations • 25 minutes</div>
+<div class="step-time">In progress...</div>
+</div>
+
+</div>
+
+
+<div class="step-item">
+
+<div class="step-icon">
+<img src="walk.png" width="18">
+</div>
+
+<div class="step-content">
+<div class="step-title">Walk to Bus Stop</div>
+<div class="step-desc">200 meters</div>
+<div class="step-time">3 mins</div>
+</div>
+
+</div>
+
+
+<div class="step-item">
+
+<div class="step-icon">
+<img src="bus.png" width="20">
+</div>
+
+<div class="step-content">
+<div class="step-title">Bus to Makati CBD</div>
+<div class="step-desc">Final destination</div>
+<div class="step-time">10 mins</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- END TRIP BUTTON -->
+
+<div class="bottom-action">
+<button class="action-btn danger">End Trip</button>
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <script src="js/animation.js"></script>
+
+</body>
+</html>
