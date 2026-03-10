@@ -704,11 +704,11 @@ const routeDatabase = [
     /* ANTIPOLO → FEU TECH ROUTES     */
     /* =============================== */
 
-    { name:"LRT-2 Direct", transport:"train.png", type:"Transit", time:43, wait:"3 min", cost:"₱30", crowd:"Medium", scores:{time:9,cost:9,comfort:7,crowd:6}},
+    { name:"LRT-2 Direct", transport:"train.png", type:"Transit", time:43, wait:"3 min", cost:"₱30", crowd:"Medium", scores:{time:9,cost:7,comfort:7,crowd:6}},
 
     { name:"LRT-2 + Walk", transport:"train.png", type:"Transit", time:48, wait:"3 min", cost:"₱30", crowd:"Medium", scores:{time:8,cost:9,comfort:6,crowd:6}},
 
-    { name:"Jeep + LRT-2", transport:"jeep.png", type:"Transit", time:55, wait:"5 min", cost:"₱35", crowd:"High", scores:{time:7,cost:8,comfort:4,crowd:4}},
+    { name:"Jeep + LRT-2", transport:"jeep.png", type:"Transit", time:55, wait:"5 min", cost:"₱35", crowd:"High",scores:{time:7,cost:10,comfort:4,crowd:3}},
 
     { name:"Bus + LRT-2", transport:"bus.png", type:"Transit", time:52, wait:"4 min", cost:"₱40", crowd:"Medium", scores:{time:7,cost:7,comfort:5,crowd:5}},
 
@@ -757,7 +757,7 @@ function rankRoutes(){
     routeDatabase.forEach(route => {
         route.score =
             (route.scores.time * weights.time) +
-            (route.scores.cost * weights.cost) +
+            (route.scores.cost * weights.cost * 1.3) +
             (route.scores.comfort * weights.comfort) +
             (route.scores.crowd * weights.crowd);
     });
